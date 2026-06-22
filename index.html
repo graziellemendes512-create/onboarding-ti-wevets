@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Manual de Onboarding TI · WeVets 2026</title>
+  <style>
+    :root {
+      --navy: #0D2137;
+      --blue: #0062CC;
+      --light-blue: #1EA8FF;
+      --sky: #5BB8FF;
+      --white: #FFFFFF;
+      --bg: #EFF6FF;
+      --card-bg: #F8FBFF;
+      --body: #1E293B;
+      --sub: #475569;
+      --border: #C8DEFF;
+      --sidebar-w: 260px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--body); }
+
+    /* SIDEBAR */
+    .sidebar {
+      position: fixed; top: 0; left: 0; width: var(--sidebar-w);
+      height: 100vh; background: var(--navy); overflow-y: auto;
+      z-index: 100; display: flex; flex-direction: column;
+    }
+    .sidebar-logo {
+      padding: 24px 20px 16px;
+      border-bottom: 2px solid var(--light-blue);
+    }
+    .sidebar-logo .brand {
+      display: inline-block; background: var(--blue); color: #fff;
+      font-size: 13px; font-weight: 700; padding: 4px 12px;
+      border-radius: 4px; letter-spacing: 1px;
+    }
+    .sidebar-logo h2 {
+      color: var(--white); font-size: 13px; font-weight: 400;
+      margin-top: 10px; line-height: 1.5; color: #7AACDD;
+    }
+    .nav-label {
+      font-size: 9px; color: var(--light-blue); font-weight: 700;
+      letter-spacing: 2px; padding: 20px 20px 8px; text-transform: uppercase;
+    }
+    .nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px; color: #8BAEC8; font-size: 13px;
+      text-decoration: none; cursor: pointer; transition: all 0.2s;
+      border-left: 3px solid transparent;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(30, 168, 255, 0.1); color: var(--white);
+      border-left-color: var(--light-blue);
+    }
+    .nav-item .num {
+      background: rgba(30, 168, 255, 0.15); color: var(--light-blue);
+      font-size: 10px; font-weight: 700; padding: 2px 6px;
+      border-radius: 3px; min-width: 24px; text-align: center;
+    }
+    .sidebar-footer {
+      margin-top: auto; padding: 16px 20px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      font-size: 10px; color: #3A6080;
+    }
+
+    /* MAIN */
+    .main { margin-left: var(--sidebar-w); min-height: 100vh; }
+
+    /* HERO */
+    .hero {
+      background: var(--navy); position: relative; overflow: hidden;
+      padding: 80px 60px 70px; min-height: 320px;
+    }
+    .hero::before {
+      content: ''; position: absolute; right: -80px; top: -80px;
+      width: 400px; height: 400px; border-radius: 50%;
+      background: rgba(0, 98, 204, 0.25);
+    }
+    .hero::after {
+      content: ''; position: absolute; right: 80px; bottom: -100px;
+      width: 280px; height: 280px; border-radius: 50%;
+      background: rgba(30, 168, 255, 0.12);
+    }
+    .hero-accent {
+      position: absolute; left: 0; top: 0; width: 5px; height: 100%;
+      background: var(--light-blue);
+    }
+    .hero-tag {
+      font-size: 11px; color: var(--sky); letter-spacing: 3px;
+      font-weight: 600; text-transform: uppercase; margin-bottom: 16px;
+    }
+    .hero h1 {
+      font-size: 48px; font-weight: 800; line-height: 1.1;
+      position: relative; z-index: 1;
+    }
+    .hero h1 span { color: var(--light-blue); display: block; }
+    .hero p { color: #7AACDD; font-size: 15px; margin-top: 16px; font-style: italic; max-width: 500px; }
+    .hero-badge {
+      display: inline-block; background: var(--blue); color: #fff;
+      font-size: 11px; font-weight: 700; padding: 5px 14px;
+      border-radius: 4px; margin-top: 24px; letter-spacing: 1px;
+    }
+
+    /* CONTENT */
+    .content { padding: 0 48px 60px; }
+
+    /* SECTION */
+    .section { margin-top: 60px; scroll-margin-top: 24px; }
+    .section-header {
+      display: flex; align-items: center; gap: 16px; margin-bottom: 28px;
+      padding-bottom: 16px; border-bottom: 2px solid var(--border);
+    }
+    .section-num {
+      background: var(--navy); color: var(--light-blue); font-size: 11px;
+      font-weight: 700; padding: 5px 10px; border-radius: 4px;
+      letter-spacing: 2px; white-space: nowrap;
+    }
+    .section-header h2 { font-size: 26px; color: var(--navy); font-weight: 700; }
+
+    /* CARDS */
+    .card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 24px; box-shadow: 0 2px 8px rgba(0,98,204,0.07);
+    }
+    .card-grid { display: grid; gap: 20px; }
+    .card-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+    .card-accent { border-left: 4px solid var(--blue); }
+    .card-dark { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .card-dark h3 { color: var(--light-blue); }
+    .card-dark p, .card-dark li { color: #A8CAFF; }
+
+    /* INTRO BLOCK */
+    .intro-block {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 5px solid var(--blue); border-radius: 8px;
+      padding: 28px 32px; margin-bottom: 28px;
+      box-shadow: 0 2px 8px rgba(0,98,204,0.07);
+    }
+    .intro-block p { font-size: 15px; line-height: 1.75; color: var(--sub); }
+
+    /* GLPI HIGHLIGHT */
+    .glpi-box {
+      background: var(--blue); color: var(--white); border-radius: 8px;
+      padding: 20px 28px; margin-top: 20px; display: flex;
+      align-items: center; gap: 20px;
+    }
+    .glpi-box .glpi-label { font-size: 14px; font-weight: 700; }
+    .glpi-box .glpi-sub { font-size: 12px; color: #A8D0FF; margin-top: 4px; }
+
+    /* RESPONSIBILITY GRID */
+    .resp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 14px; margin-top: 20px;
+    }
+    .resp-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 14px; text-align: center;
+      box-shadow: 0 2px 6px rgba(0,98,204,0.06);
+      border-top: 3px solid var(--light-blue);
+    }
+    .resp-card .icon { font-size: 28px; margin-bottom: 8px; }
+    .resp-card .label { font-size: 12px; font-weight: 700; color: var(--navy); }
+
+    /* ORG CHART */
+    .org-chart { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .org-level { display: flex; justify-content: center; gap: 16px; position: relative; }
+    .org-connector { width: 2px; height: 28px; background: #7AAAD0; margin: 0 auto; }
+    .org-horizontal {
+      display: flex; gap: 16px; position: relative; justify-content: center;
+    }
+    .org-horizontal::before {
+      content: ''; position: absolute; top: 0; left: 50px; right: 50px;
+      height: 2px; background: #7AAAD0;
+    }
+    .org-box {
+      background: var(--navy); color: var(--white); border-radius: 6px;
+      padding: 14px 20px; text-align: center; min-width: 180px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    }
+    .org-box.blue { background: var(--blue); }
+    .org-box.branch { background: #1565C0; min-width: 150px; font-size: 13px; }
+    .org-box .role { font-size: 10px; color: #A8D0FF; margin-bottom: 4px; }
+    .org-box .name { font-size: 14px; font-weight: 700; }
+    .org-box .email { font-size: 10px; color: #7AACDD; margin-top: 4px; }
+    .org-branch-wrap { display: flex; flex-direction: column; align-items: center; }
+
+    /* PERSON CARD */
+    .person-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,98,204,0.07);
+    }
+    .person-header {
+      background: var(--navy); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .person-header.blue { background: var(--blue); }
+    .avatar {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: rgba(255,255,255,0.2); color: #fff;
+      font-size: 18px; font-weight: 700; display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .person-name { font-size: 17px; font-weight: 700; color: #fff; }
+    .person-role { font-size: 11px; color: #A8D0FF; margin-bottom: 4px; }
+    .person-body { padding: 20px 24px; }
+    .person-email { font-size: 12px; color: var(--blue); margin-bottom: 14px; }
+    .resp-list { list-style: none; }
+    .resp-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 13px; color: var(--sub); padding: 5px 0;
+      border-bottom: 1px solid #F0F6FF;
+    }
+    .resp-list li::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%;
+      background: var(--blue); flex-shrink: 0; margin-top: 5px;
+    }
+    .resp-list-label {
+      font-size: 12px; font-weight: 700; color: var(--navy);
+      margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+
+    /* SUPPORT LEVELS */
+    .level-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,98,204,0.07);
+    }
+    .level-header {
+      padding: 14px 20px; color: #fff; font-weight: 700; font-size: 15px;
+    }
+    .level-body { padding: 18px 20px; }
+    .member-row {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px; padding-bottom: 10px;
+      border-bottom: 1px solid var(--bg);
+    }
+    .member-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+    }
+    .member-name { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .member-email { font-size: 11px; color: var(--sub); }
+
+    /* FLOW */
+    .flow-wrap {
+      display: flex; align-items: center; gap: 8px;
+      overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px;
+    }
+    .flow-step {
+      flex-shrink: 0; border-radius: 8px; padding: 16px 14px;
+      text-align: center; min-width: 120px; color: #fff;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+    .flow-step .step-num {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: rgba(255,255,255,0.25); margin: 0 auto 8px;
+      font-size: 13px; font-weight: 700; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .flow-step .step-label { font-size: 12px; font-weight: 700; }
+    .flow-step .step-sub { font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 4px; }
+    .flow-arrow { color: #7AAAD0; font-size: 18px; flex-shrink: 0; }
+    .sla-box {
+      background: var(--white); border: 1px solid var(--border);
+      border-left: 5px solid var(--blue); border-radius: 8px;
+      padding: 20px 24px; display: flex; align-items: center;
+      gap: 24px; box-shadow: 0 2px 8px rgba(0,98,204,0.07);
+    }
+    .sla-value {
+      font-size: 40px; font-weight: 800; color: var(--blue);
+      line-height: 1; white-space: nowrap;
+    }
+    .sla-label { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .sla-desc { font-size: 13px; color: var(--sub); margin-top: 4px; }
+
+    /* ESCALATION TABLE */
+    .escalation-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+      border: 1px solid var(--border); border-radius: 8px; overflow: hidden;
+    }
+    .esc-col { border-right: 1px solid var(--border); }
+    .esc-col:last-child { border-right: none; }
+    .esc-header {
+      padding: 14px 16px; color: #fff; font-weight: 700;
+      display: flex; flex-direction: column;
+    }
+    .esc-header .esc-level { font-size: 20px; margin-bottom: 2px; }
+    .esc-header .esc-name { font-size: 11px; opacity: 0.85; }
+    .esc-item {
+      padding: 10px 14px; font-size: 12px; color: var(--body);
+      border-top: 1px solid var(--border);
+    }
+    .esc-item:nth-child(even) { background: var(--bg); }
+
+    /* GLPI BENEFITS */
+    .glpi-layout { display: grid; grid-template-columns: 280px 1fr; gap: 24px; }
+    .glpi-hero {
+      background: var(--navy); border-radius: 8px; padding: 32px 24px;
+      text-align: center; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+    }
+    .glpi-title { font-size: 56px; font-weight: 900; color: var(--light-blue); }
+    .glpi-subtitle { color: var(--white); font-size: 14px; font-weight: 700; margin-top: 8px; }
+    .glpi-rule {
+      background: rgba(30,168,255,0.15); border: 1px solid rgba(30,168,255,0.3);
+      border-radius: 6px; padding: 14px 16px; margin-top: 20px;
+      font-size: 13px; font-weight: 700; color: var(--white);
+    }
+    .glpi-exception { font-size: 11px; color: #5A80A0; margin-top: 8px; font-style: italic; }
+    .benefit-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 14px 0; border-bottom: 1px solid var(--border);
+    }
+    .benefit-row:last-child { border-bottom: none; }
+    .benefit-icon { font-size: 24px; flex-shrink: 0; }
+    .benefit-title { font-size: 14px; font-weight: 700; color: var(--navy); }
+    .benefit-desc { font-size: 13px; color: var(--sub); margin-top: 3px; }
+
+    /* PRINCIPLES */
+    .principle-card {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 20px 16px;
+      border-top: 3px solid var(--light-blue);
+      box-shadow: 0 2px 6px rgba(0,98,204,0.06);
+    }
+    .principle-card.accent {
+      background: var(--blue); border-color: var(--blue);
+      border-top-color: var(--light-blue);
+    }
+    .principle-card.accent h3 { color: var(--white); }
+    .principle-card.accent p { color: #C8E0FF; }
+    .principle-icon { font-size: 30px; margin-bottom: 10px; }
+    .principle-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .principle-card p { font-size: 12px; color: var(--sub); line-height: 1.5; }
+
+    /* ROADMAP */
+    .roadmap-item {
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: 8px; padding: 16px 20px;
+      display: flex; align-items: flex-start; gap: 14px;
+      box-shadow: 0 2px 6px rgba(0,98,204,0.05);
+    }
+    .roadmap-icon-wrap {
+      width: 44px; height: 44px; background: var(--bg);
+      border: 1px solid var(--border); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .roadmap-item h4 { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .roadmap-item p { font-size: 12px; color: var(--sub); }
+    .roadmap-divider { width: 4px; height: 100%; background: var(--blue); border-radius: 2px; align-self: stretch; flex-shrink: 0; }
+
+    /* CLOSING */
+    .closing {
+      background: var(--navy); border-radius: 12px;
+      padding: 48px 40px; margin-top: 60px; position: relative; overflow: hidden;
+    }
+    .closing::before {
+      content: ''; position: absolute; right: -60px; top: -60px;
+      width: 300px; height: 300px; border-radius: 50%;
+      background: rgba(0,98,204,0.3);
+    }
+    .closing h2 { font-size: 36px; font-weight: 800; color: var(--white); position: relative; z-index: 1; }
+    .closing h2 span { color: var(--light-blue); }
+    .closing p { color: #7AACDD; font-size: 15px; margin-top: 12px; font-style: italic; position: relative; z-index: 1; max-width: 560px; }
+    .closing-contact {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--blue); color: #fff; padding: 12px 24px;
+      border-radius: 6px; font-size: 13px; font-weight: 700;
+      margin-top: 24px; position: relative; z-index: 1;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #040E1A; color: #2A4A6A; text-align: center;
+      font-size: 11px; padding: 16px; margin-left: 0;
+    }
+
+    /* PRINT / RESPONSIVE */
+    @media (max-width: 900px) {
+      :root { --sidebar-w: 0px; }
+      .sidebar { display: none; }
+      .main { margin-left: 0; }
+      .hero { padding: 40px 24px; }
+      .content { padding: 0 20px 40px; }
+      .card-grid-2, .card-grid-3, .card-grid-4 { grid-template-columns: 1fr; }
+      .glpi-layout { grid-template-columns: 1fr; }
+      .escalation-grid { grid-template-columns: 1fr 1fr; }
+      .resp-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="sidebar-logo">
+    <span class="brand">WeVets</span>
+    <h2>Manual de Onboarding<br>Área de TI · 2026</h2>
+  </div>
+  <div class="nav-label">Navegação</div>
+  <a class="nav-item active" href="#objetivo"><span class="num">01</span> Objetivo da TI</a>
+  <a class="nav-item" href="#estrutura"><span class="num">02</span> Estrutura Organizacional</a>
+  <a class="nav-item" href="#equipe"><span class="num">03</span> Liderança e Especialistas</a>
+  <a class="nav-item" href="#suporte"><span class="num">04</span> Equipe de Suporte</a>
+  <a class="nav-item" href="#glpi"><span class="num">05</span> Ferramenta GLPI</a>
+  <a class="nav-item" href="#fluxo"><span class="num">06</span> Fluxo de Atendimento</a>
+  <a class="nav-item" href="#escalonamento"><span class="num">07</span> Escalonamento</a>
+  <a class="nav-item" href="#principios"><span class="num">08</span> Princípios da Equipe</a>
+  <a class="nav-item" href="#roadmap"><span class="num">09</span> Expansões Futuras</a>
+  <div class="sidebar-footer">© 2026 WeVets · Uso Interno</div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-accent"></div>
+    <div class="hero-tag">Tecnologia da Informação · 2026</div>
+    <h1 style="color:#fff;">Manual de <span>Onboarding de TI</span></h1>
+    <p>Bem-vindo à equipe de Tecnologia da WeVets. Este manual é seu guia completo para entender nossa estrutura, processos e ferramentas.</p>
+    <span class="hero-badge">CONFIDENCIAL · USO INTERNO</span>
+  </div>
+
+  <div class="content">
+
+    <!-- 01 OBJETIVO -->
+    <section class="section" id="objetivo">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 01</span>
+        <h2>Objetivo da Área de Tecnologia</h2>
+      </div>
+
+      <div class="intro-block">
+        <p>A área de Tecnologia da Informação da WeVets tem como objetivo garantir a <strong>disponibilidade, segurança e funcionamento</strong> dos sistemas, equipamentos, infraestrutura e suporte aos colaboradores, promovendo uma experiência eficiente e ágil para todas as áreas da empresa.</p>
+      </div>
+
+      <div class="glpi-box">
+        <div>
+          <div class="glpi-label">🎯 Todo atendimento via GLPI</div>
+          <div class="glpi-sub">Rastreabilidade · Priorização · SLA · Melhoria Contínua</div>
+        </div>
+      </div>
+
+      <div class="resp-grid" style="margin-top:28px;">
+        <div class="resp-card"><div class="icon">🔐</div><div class="label">Gestão de Acessos</div></div>
+        <div class="resp-card"><div class="icon">🎧</div><div class="label">Suporte aos Colaboradores</div></div>
+        <div class="resp-card"><div class="icon">💻</div><div class="label">Gestão de Equipamentos</div></div>
+        <div class="resp-card"><div class="icon">⚙️</div><div class="label">Sistemas Corporativos</div></div>
+        <div class="resp-card"><div class="icon">🌐</div><div class="label">Infraestrutura e Redes</div></div>
+        <div class="resp-card"><div class="icon">🤖</div><div class="label">Automação</div></div>
+        <div class="resp-card"><div class="icon">📋</div><div class="label">Governança e Processos</div></div>
+        <div class="resp-card"><div class="icon">🛡️</div><div class="label">Segurança da Informação</div></div>
+        <div class="resp-card"><div class="icon">📞</div><div class="label">Incidentes e Requisições</div></div>
+      </div>
+    </section>
+
+    <!-- 02 ESTRUTURA -->
+    <section class="section" id="estrutura">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 02</span>
+        <h2>Estrutura Organizacional</h2>
+      </div>
+
+      <div class="org-chart">
+        <div class="org-level">
+          <div class="org-box">
+            <div class="role">Diretor de Tecnologia (CTO)</div>
+            <div class="name">Eduardo Angelo</div>
+            <div class="email">eangelo@wevets.com.br</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+        <div class="org-level">
+          <div class="org-box blue">
+            <div class="role">Coordenador de TI</div>
+            <div class="name">Marcio Carnicelli</div>
+            <div class="email">mcarnicelli@wevets.com.br</div>
+          </div>
+        </div>
+        <div class="org-connector"></div>
+        <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;">
+          <div class="org-branch-wrap">
+            <div class="org-connector" style="height:20px;"></div>
+            <div class="org-box branch">
+              <div class="role">Automação</div>
+              <div class="name">Bruno Rodrigues</div>
+              <div class="email">brodrigues@wevets.com.br</div>
+            </div>
+          </div>
+          <div class="org-branch-wrap">
+            <div class="org-connector" style="height:20px;"></div>
+            <div class="org-box branch">
+              <div class="role">Sistemas</div>
+              <div class="name">Bianca França</div>
+              <div class="email">bfranca@wevets.com.br</div>
+            </div>
+          </div>
+          <div class="org-branch-wrap">
+            <div class="org-connector" style="height:20px;"></div>
+            <div class="org-box branch">
+              <div class="role">Infra / N3</div>
+              <div class="name">Grazielle M. · Gisele P.</div>
+              <div class="email">gmendes / gpereira</div>
+            </div>
+          </div>
+          <div class="org-branch-wrap">
+            <div class="org-connector" style="height:20px;"></div>
+            <div class="org-box branch">
+              <div class="role">Field &amp; Service Desk</div>
+              <div class="name">Luiz G. · Marcelo · Sophia · Kaue</div>
+              <div class="email">N1 &amp; N2</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 EQUIPE LIDERANÇA -->
+    <section class="section" id="equipe">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 03</span>
+        <h2>Liderança e Especialistas</h2>
+      </div>
+
+      <div class="card-grid card-grid-2" style="margin-bottom:24px;">
+        <!-- CTO -->
+        <div class="person-card">
+          <div class="person-header">
+            <div class="avatar">EA</div>
+            <div>
+              <div class="person-role">Diretor de Tecnologia (CTO)</div>
+              <div class="person-name">Eduardo Angelo</div>
+            </div>
+          </div>
+          <div class="person-body">
+            <div class="person-email">✉ eangelo@wevets.com.br</div>
+            <div class="resp-list-label">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Estratégia de TI</li>
+              <li>Diretrizes e arquitetura</li>
+              <li>Aprovação de projetos</li>
+              <li>Governança e inovação</li>
+              <li>Alinhamento TI &amp; Negócio</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Coordenador -->
+        <div class="person-card">
+          <div class="person-header blue">
+            <div class="avatar">MC</div>
+            <div>
+              <div class="person-role">Coordenador de TI</div>
+              <div class="person-name">Marcio Carnicelli</div>
+            </div>
+          </div>
+          <div class="person-body">
+            <div class="person-email">✉ mcarnicelli@wevets.com.br</div>
+            <div class="resp-list-label">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Coordenação da equipe</li>
+              <li>Gestão de demandas e prioridades</li>
+              <li>Gestão de fornecedores</li>
+              <li>Planejamento operacional</li>
+              <li>Garantia dos SLAs</li>
+              <li>Escalonamentos críticos</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-grid card-grid-2">
+        <!-- Automação -->
+        <div class="person-card">
+          <div class="person-header" style="background:#1565C0;">
+            <div class="avatar">🤖</div>
+            <div>
+              <div class="person-role">Automação</div>
+              <div class="person-name">Bruno Rodrigues</div>
+            </div>
+          </div>
+          <div class="person-body">
+            <div class="person-email">✉ brodrigues@wevets.com.br</div>
+            <div class="resp-list-label">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Automação de processos</li>
+              <li>Integrações entre sistemas</li>
+              <li>Desenvolvimento de melhorias</li>
+              <li>Fluxos e otimizações operacionais</li>
+            </ul>
+          </div>
+        </div>
+        <!-- Sistemas -->
+        <div class="person-card">
+          <div class="person-header blue">
+            <div class="avatar">⚙️</div>
+            <div>
+              <div class="person-role">Sistemas</div>
+              <div class="person-name">Bianca França</div>
+            </div>
+          </div>
+          <div class="person-body">
+            <div class="person-email">✉ bfranca@wevets.com.br</div>
+            <div class="resp-list-label">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Administração dos sistemas corporativos</li>
+              <li>Sustentação e parametrizações</li>
+              <li>Tratativas com fornecedores</li>
+              <li>Correções e melhorias sistêmicas</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 SUPORTE -->
+    <section class="section" id="suporte">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 04</span>
+        <h2>Infraestrutura, Suporte e Service Desk</h2>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <!-- N3 -->
+        <div class="level-card">
+          <div class="level-header" style="background:#0D2137;">N3 – Infra &amp; Redes</div>
+          <div class="level-body">
+            <div class="member-row">
+              <div class="member-avatar" style="background:#0D2137;">GM</div>
+              <div>
+                <div class="member-name">Grazielle Mendes</div>
+                <div class="member-email">gmendes@wevets.com.br</div>
+              </div>
+            </div>
+            <div class="member-row">
+              <div class="member-avatar" style="background:#0D2137;">GP</div>
+              <div>
+                <div class="member-name">Gisele Pereira</div>
+                <div class="member-email">gpereira@wevets.com.br</div>
+              </div>
+            </div>
+            <div class="resp-list-label" style="margin-top:12px;">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Infraestrutura e servidores</li>
+              <li>Redes e conectividade</li>
+              <li>Microsoft 365</li>
+              <li>Segurança da informação</li>
+              <li>Incidentes críticos</li>
+              <li>Projetos de infra</li>
+            </ul>
+          </div>
+        </div>
+        <!-- N2 -->
+        <div class="level-card">
+          <div class="level-header" style="background:#0062CC;">N2 – Field Service</div>
+          <div class="level-body">
+            <div class="member-row">
+              <div class="member-avatar" style="background:#0062CC;">LG</div>
+              <div>
+                <div class="member-name">Luiz Gustavo Corrêa</div>
+                <div class="member-email">gscorrea@wevets.com.br · Líder Técnico</div>
+              </div>
+            </div>
+            <div class="resp-list-label" style="margin-top:12px;">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Troca e manutenção de equipamentos</li>
+              <li>Suporte em campo</li>
+              <li>Inventário e gestão de ativos</li>
+              <li>Instalações físicas</li>
+              <li>Problemas de hardware</li>
+              <li>Apoio ao N1</li>
+            </ul>
+          </div>
+        </div>
+        <!-- N1 -->
+        <div class="level-card">
+          <div class="level-header" style="background:#1EA8FF;">N1 – Service Desk</div>
+          <div class="level-body">
+            <div class="member-row">
+              <div class="member-avatar" style="background:#1EA8FF;">MO</div>
+              <div>
+                <div class="member-name">Marcelo C. Oliveira</div>
+                <div class="member-email">mcoliveira@wevets.com.br</div>
+              </div>
+            </div>
+            <div class="member-row">
+              <div class="member-avatar" style="background:#1EA8FF;">SS</div>
+              <div>
+                <div class="member-name">Sophia Santos</div>
+                <div class="member-email">ssantos@wevets.com.br</div>
+              </div>
+            </div>
+            <div class="member-row">
+              <div class="member-avatar" style="background:#1EA8FF;">KX</div>
+              <div>
+                <div class="member-name">Kaue Xavier</div>
+                <div class="member-email">kxavier@wevets.com.br</div>
+              </div>
+            </div>
+            <div class="resp-list-label" style="margin-top:12px;">Responsabilidades</div>
+            <ul class="resp-list">
+              <li>Primeiro atendimento (SLA: 2h)</li>
+              <li>Criação de usuários e acessos</li>
+              <li>Atendimento de chamados</li>
+              <li>Direcionamento para N2 / N3</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 GLPI -->
+    <section class="section" id="glpi">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 05</span>
+        <h2>Ferramenta Oficial: GLPI</h2>
+      </div>
+
+      <div class="glpi-layout">
+        <div class="glpi-hero">
+          <div class="glpi-title">GLPI</div>
+          <div class="glpi-subtitle">Sistema Oficial de Gestão de Chamados</div>
+          <div class="glpi-rule">⚠️ Todo chamado DEVE ser registrado no GLPI.</div>
+          <div class="glpi-exception">Exceto: situações críticas ou indisponibilidade do sistema.</div>
+        </div>
+        <div class="card" style="padding:24px 28px;">
+          <h3 style="font-size:16px;color:var(--navy);margin-bottom:16px;">Por que usar o GLPI?</h3>
+          <div class="benefit-row">
+            <div class="benefit-icon">📌</div>
+            <div><div class="benefit-title">Rastreabilidade</div><div class="benefit-desc">Cada chamado tem histórico completo e auditável.</div></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-icon">🎯</div>
+            <div><div class="benefit-title">Priorização</div><div class="benefit-desc">Demandas classificadas por urgência e impacto.</div></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-icon">⏱️</div>
+            <div><div class="benefit-title">Gestão de SLA</div><div class="benefit-desc">Controle de prazos e cumprimento de acordos.</div></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-icon">📈</div>
+            <div><div class="benefit-title">Indicadores</div><div class="benefit-desc">Métricas para melhoria contínua do time.</div></div>
+          </div>
+          <div class="benefit-row">
+            <div class="benefit-icon">📁</div>
+            <div><div class="benefit-title">Histórico</div><div class="benefit-desc">Base de conhecimento de atendimentos anteriores.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 FLUXO -->
+    <section class="section" id="fluxo">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 06</span>
+        <h2>Fluxo de Atendimento</h2>
+      </div>
+
+      <div class="flow-wrap">
+        <div class="flow-step" style="background:#1E3A5F;">
+          <div class="step-num">1</div>
+          <div class="step-label">Usuário</div>
+          <div class="step-sub">Identifica o problema</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#0D2137;">
+          <div class="step-num">2</div>
+          <div class="step-label">GLPI</div>
+          <div class="step-sub">Abre o chamado</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#0062CC;">
+          <div class="step-num">3</div>
+          <div class="step-label">N1 · Service Desk</div>
+          <div class="step-sub">SLA: 2h</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#0EA5E9;">
+          <div class="step-num">4</div>
+          <div class="step-label">N2 · Hardware</div>
+          <div class="step-sub">Quando necessário</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#0D9488;">
+          <div class="step-num">5</div>
+          <div class="step-label">N3 · Infra</div>
+          <div class="step-sub">Quando necessário</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#7C3AED;">
+          <div class="step-num">6</div>
+          <div class="step-label">Sistemas / Auto</div>
+          <div class="step-sub">Quando aplicável</div>
+        </div>
+        <div class="flow-arrow">▶</div>
+        <div class="flow-step" style="background:#059669;">
+          <div class="step-num">7</div>
+          <div class="step-label">Encerramento</div>
+          <div class="step-sub">Documentação</div>
+        </div>
+      </div>
+
+      <div class="sla-box">
+        <div class="sla-value">2h</div>
+        <div>
+          <div class="sla-label">⏱ SLA de Primeiro Contato</div>
+          <div class="sla-desc">Após abertura do chamado no GLPI, o N1 tem até 2 horas para o primeiro contato.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 07 ESCALONAMENTO -->
+    <section class="section" id="escalonamento">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 07</span>
+        <h2>Matriz de Escalonamento de Chamados</h2>
+      </div>
+
+      <div class="escalation-grid">
+        <div class="esc-col">
+          <div class="esc-header" style="background:#1EA8FF;">
+            <span class="esc-level">N1</span>
+            <span class="esc-name">Service Desk</span>
+          </div>
+          <div class="esc-item">Admissão: criar acessos (Corp, Guruvet, Zendesk, TOTVS, GLPI, Korus)</div>
+          <div class="esc-item">Redefinição de senhas</div>
+          <div class="esc-item">Desbloqueios de conta</div>
+          <div class="esc-item">Acessos básicos</div>
+          <div class="esc-item">Suporte inicial</div>
+        </div>
+        <div class="esc-col">
+          <div class="esc-header" style="background:#0062CC;">
+            <span class="esc-level">N2</span>
+            <span class="esc-name">Field Service</span>
+          </div>
+          <div class="esc-item">Troca de notebooks e periféricos</div>
+          <div class="esc-item">Impressoras e equipamentos</div>
+          <div class="esc-item">Problemas físicos e instalações</div>
+          <div class="esc-item">Atendimento presencial em campo</div>
+          <div class="esc-item">Gestão de ativos e inventário</div>
+        </div>
+        <div class="esc-col">
+          <div class="esc-header" style="background:#0D2137;">
+            <span class="esc-level">N3</span>
+            <span class="esc-name">Infra &amp; Redes</span>
+          </div>
+          <div class="esc-item">Servidores e ambientes</div>
+          <div class="esc-item">Redes, VPN e conectividade</div>
+          <div class="esc-item">Microsoft 365 e cloud</div>
+          <div class="esc-item">Segurança da informação</div>
+          <div class="esc-item">Incidentes críticos</div>
+          <div class="esc-item">Projetos de infraestrutura</div>
+        </div>
+        <div class="esc-col">
+          <div class="esc-header" style="background:#7C3AED;">
+            <span class="esc-level">SIS</span>
+            <span class="esc-name">Sistemas &amp; Auto</span>
+          </div>
+          <div class="esc-item">Erros e falhas sistêmicas</div>
+          <div class="esc-item">Parametrizações de sistemas</div>
+          <div class="esc-item">Integrações entre plataformas</div>
+          <div class="esc-item">Suporte a sistemas corporativos</div>
+          <div class="esc-item">Relacionamento com fornecedores</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 08 PRINCÍPIOS -->
+    <section class="section" id="principios">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 08</span>
+        <h2>Princípios da Equipe de TI</h2>
+      </div>
+
+      <div class="card-grid card-grid-4">
+        <div class="principle-card accent">
+          <div class="principle-icon">🏆</div>
+          <h3>Excelência</h3>
+          <p>Qualidade em cada interação com os colaboradores e parceiros.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">⚡</div>
+          <h3>Agilidade</h3>
+          <p>Resposta rápida e eficiente às demandas do negócio.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🔍</div>
+          <h3>Transparência</h3>
+          <p>Comunicação clara e aberta com toda a empresa.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🛡️</div>
+          <h3>Segurança</h3>
+          <p>Proteção de dados e sistemas como prioridade máxima.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">📈</div>
+          <h3>Melhoria Contínua</h3>
+          <p>Evolução constante de processos e tecnologias.</p>
+        </div>
+        <div class="principle-card accent">
+          <div class="principle-icon">📋</div>
+          <h3>Documentação</h3>
+          <p>Registrar e preservar o conhecimento da equipe.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🤝</div>
+          <h3>Colaboração</h3>
+          <p>Time unido, suporte mútuo e foco coletivo.</p>
+        </div>
+        <div class="principle-card">
+          <div class="principle-icon">🎯</div>
+          <h3>Foco no Usuário</h3>
+          <p>O colaborador e o negócio no centro de tudo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 09 ROADMAP -->
+    <section class="section" id="roadmap">
+      <div class="section-header">
+        <span class="section-num">SEÇÃO 09</span>
+        <h2>Expansões Futuras do Manual</h2>
+      </div>
+
+      <div class="card-grid card-grid-3">
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">📂</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Catálogo de Serviços</h4><p>Lista completa de serviços da TI com descrições.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">⏱️</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Matriz de SLA</h4><p>Prazos definidos por tipo, prioridade e categoria.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">💻</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Política de Equipamentos</h4><p>Regras de uso, troca e gestão de hardware.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">🔒</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Segurança da Informação</h4><p>Políticas, normas e boas práticas de segurança.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">👋</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Onboarding &amp; Offboarding</h4><p>Processos formais de entrada e saída de colaboradores.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">✅</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Fluxos de Aprovação</h4><p>Hierarquia de aprovações para demandas e aquisições.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">📦</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Inventário de Ativos</h4><p>Controle completo de equipamentos e licenças.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">📚</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Base de Conhecimento</h4><p>Documentação técnica e tutoriais internos.</p></div>
+        </div>
+        <div class="roadmap-item">
+          <div class="roadmap-icon-wrap">🚨</div>
+          <div class="roadmap-divider"></div>
+          <div><h4>Procedimentos de Contingência</h4><p>Respostas estruturadas para incidentes críticos.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CLOSING -->
+    <div class="closing">
+      <h2>Bem-vindo à <span>Equipe de TI WeVets</span></h2>
+      <p>Estamos felizes em ter você conosco. Qualquer dúvida, abra um chamado no GLPI ou fale com o Service Desk.</p>
+      <div class="closing-contact">🎧 Service Desk · N1 · (11) 99458-9472</div>
+    </div>
+
+  </div><!-- /content -->
+
+  <footer>
+    © 2026 WeVets · Área de Tecnologia da Informação · Uso Interno · Todos os direitos reservados.
+  </footer>
+
+</main>
+
+<script>
+  // Active nav on scroll
+  const sections = document.querySelectorAll('.section');
+  const navItems = document.querySelectorAll('.nav-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navItems.forEach(n => n.classList.remove('active'));
+        const active = document.querySelector(`.nav-item[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  navItems.forEach(item => {
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(item.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
